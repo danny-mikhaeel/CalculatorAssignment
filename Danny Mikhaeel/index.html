@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<link href="design.css" rel="stylesheet" type="text/css" >
+		<title>Calculator</title>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+	</head>
+	
+	<title>Calculator</title>
+	
+	<body>
+		<div id="calculator" ng-app="Calculator">
+		    <div ng-controller="MyCalculator">
+			<form>
+			
+				<input type="text" id="display" ng-model="displayValue" disabled> <br>
+				<input type="button" value="C" id="keys" ng-click="clearDisplay()">
+				<input type="button" value="sqrt" id="keys" ng-click="calcSqrt()">
+				<input type="button" value="x^n" id="keys" ng-click="myValue('^')">
+				<input type="button" value="+" id="keys" ng-click="myValue('+')"> <br>
+				
+				<input type="button" value="9" id="keys" ng-click="myValue('9')">
+				<input type="button" value="8" id="keys" ng-click="myValue('8')">
+				<input type="button" value="7" id="keys" ng-click="myValue('7')">
+				<input type="button" value="-" id="keys" ng-click="myValue('-')"> <br>
+				
+				<input type="button" value="6" id="keys" ng-click="myValue('6')">
+				<input type="button" value="5" id="keys" ng-click="myValue('5')">
+				<input type="button" value="4" id="keys" ng-click="myValue('4')">
+				<input type="button" value="*" id="keys" ng-click="myValue('*')"> <br>
+				
+				<input type="button" value="3" id="keys" ng-click="myValue('3')">
+				<input type="button" value="2" id="keys" ng-click="myValue('2')">
+				<input type="button" value="1" id="keys" ng-click="myValue('1')">
+				<input type="button" value="/" id="keys" ng-click="myValue('/')"> <br>
+				
+				<input type="button" value="0" id="keys" ng-click="myValue('0')">
+				<input type="button" value="." id="keys" ng-click="myValue('.')">
+				<input type="button" value="=" id="equal" ng-click="calcResult()">
+
+			</form>
+			</div>
+		</div>
+		
+		<script>
+	    angular.module("Calculator", []).controller("MyCalculator", function MyCalculator($scope) {
+		$scope.displayValue = "0";
+		$scope.firstValue = 0;
+		$scope.secondValue = 0;
+		$scope.minusSign = "";
+		$scope.count = 0;
+		
+		$scope.myValue = function(v) {
+		if($scope.count == 0) {
+		$scope.displayValue = "";
+		$scope.count = 1;
+		}
+		
+		switch(v) {
+		case '0':
+		$scope.secondValue = 0;
+		$scope.displayValue = $scope.displayValue + "0";
+		break;
+		case '1':
+		$scope.secondValue = 1;
+		$scope.displayValue = $scope.displayValue + "1";
+		break;
+		case '2':
+		$scope.secondValue = 2;
+		$scope.displayValue = $scope.displayValue + "2";
+		break;
+		case '3':
+		$scope.secondValue = 3;
+		$scope.displayValue = $scope.displayValue + "3";
+		break;
+		case '4':
+		$scope.secondValue = 4;
+		$scope.displayValue = $scope.displayValue + "4";
+		break;
+		case '5':
+		$scope.secondValue = 5;
+		$scope.displayValue = $scope.displayValue + "5";
+		break;
+		case '6':
+		$scope.secondValue = 6;
+		$scope.displayValue = $scope.displayValue + "6";
+		break;
+		case '7':
+		$scope.secondValue = 7;
+		$scope.displayValue = $scope.displayValue + "7";
+		break;
+		case '8':
+		$scope.secondValue = 8;
+		$scope.displayValue = $scope.displayValue + "8";
+		break;
+		case '9':
+		$scope.secondValue = 9;
+		$scope.displayValue = $scope.displayValue + "9";
+		break;
+		case '.':
+		$scope.displayValue = $scope.displayValue + ".";
+		break;
+		case '+':
+		$scope.displayValue = $scope.displayValue + "+";
+		break;
+		case '-':
+		$scope.minusSign = "-"
+		$scope.displayValue = $scope.displayValue + "-";
+		break;
+		case '*':
+		$scope.displayValue = $scope.displayValue + "*";
+		break;
+		case '/':
+		$scope.displayValue = $scope.displayValue + "/";
+		break;
+		case '^':
+		$scope.firstValue = $scope.displayValue;
+		$scope.displayValue = $scope.displayValue + "^";
+		break;
+		default:
+		}
+		}
+		
+		
+		$scope.calcResult = function() {
+		if($scope.displayValue.charAt(1) == '^') {
+        $scope.displayValue = Math.pow($scope.firstValue ,$scope.$eval($scope.minusSign + $scope.secondValue));
+		$scope.minusSign = "";
+		} else {
+		$scope.displayValue = $scope.$eval($scope.displayValue);
+		}
+		}
+		
+		$scope.clearDisplay = function() {
+		$scope.displayValue = "0";
+		$scope.minusSign = "";
+		$scope.firstValue = 0;
+		$scope.secondValue = 0;
+		$scope.count = 0;
+		}
+		
+		$scope.calcSqrt = function() {
+		if(parseFloat($scope.displayValue) < 0) {
+		$scope.displayValue = "Error"
+		} else {
+		$scope.displayValue = Math.sqrt(parseFloat($scope.displayValue));
+		}
+		}
+		
+		});
+	</script>
+		
+	</body>
+</html>
